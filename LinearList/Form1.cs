@@ -4,8 +4,8 @@ namespace LinearList
 {
     public partial class LinearList : Form
     {
-        public class Node
-        {//节点类
+        public class Node//节点类
+        {
             public int value;
             public Node next;
             public Node prev;
@@ -18,8 +18,8 @@ namespace LinearList
 
         }
         int count; //维护元素个数
-        int[] a;
-        Node p0;
+        int[] a;   //动态数组
+        Node p0;   //头节点
         public LinearList()
         {
             InitializeComponent();
@@ -29,7 +29,18 @@ namespace LinearList
         {
 
         }
-        //链表的输出函数
+        /*
+         * 数组扩容
+         */
+        private void extendArr()
+        {
+            int[] b = new int[a.Length * 2];
+            Array.Copy(a, b, a.Length);
+            a = b;
+        }
+        /*
+         * 链表的输出函数
+         */
         private void PrintList(TextBox tb)
         {
             String s = "";
@@ -41,14 +52,18 @@ namespace LinearList
             }
             tb.Text = s;
         }
-        //动态数组的输出函数
+        /*
+         * 动态数组的输出函数
+         */
         private void PrintArr(TextBox tb)
         {
             String s = "";
             for (int i = 0; i < count; i++) s += (a[i] + " ");
             tb.Text = s;
         }
-        //创建动态数组
+        /*
+         * 创建动态数组
+         */
         private void ArrBtn_Click(object sender, EventArgs e)
         {
             String[] s = InputBox.Text.Split(" ");//解析输入数字
@@ -66,12 +81,7 @@ namespace LinearList
                     createdText.ForeColor = Color.Red;
                 }
                 count++;
-                if (count == a.Length)
-                {//扩容
-                    int[] b = new int[a.Length * 2];
-                    Array.Copy(a, b, a.Length);
-                    a = b;
-                }
+                if (count == a.Length) extendArr();
             }
             createdText.Text = "已创建链表！";
             createdText.ForeColor = Color.Green;
@@ -85,7 +95,9 @@ namespace LinearList
             delete_List_btn.ForeColor= Color.DarkGray;
             PrintArr(OutputText);
         }
-        //创建链表
+        /*
+         * 创建链表
+         */
         private void ListCreated_Click(object sender, EventArgs e)
         {
             String[] s = InputBox.Text.Split(" ");//解析输入数字
@@ -121,12 +133,16 @@ namespace LinearList
             delete_arr_btn.ForeColor= Color.DarkGray;
             PrintList(OutputText);
         }
-
+        /*
+         * 获取链表长度
+         */
         private void length_Click(object sender, EventArgs e)
         {
             lenText.Text = count + "";
         }
-
+        /*
+        * 通过序号查找元素
+        */
         private void getEleById_arr_Click(object sender, EventArgs e)
         {
             int index = int.Parse(getEleById_TextBox.Text);
@@ -140,7 +156,9 @@ namespace LinearList
                 getEle_Text.Text = a[index - 1] + "";
             }
         }
-
+        /*
+         * 通过序号查找元素
+         */
         private void getEleById_List_Click(object sender, EventArgs e)
         {
             int index = int.Parse(getEleById_TextBox.Text);
@@ -161,7 +179,9 @@ namespace LinearList
                 }
             }
         }
-
+        /*
+         * 获取元素的序号
+         */
         private void getIdByEle_arr_Click(object sender, EventArgs e)
         {
             int ele = int.Parse(getIdByEle_TextBox.Text);
@@ -176,7 +196,9 @@ namespace LinearList
             getId_Text.Text = "未查找到元素！！";
             getId_Text.ForeColor = Color.Red;
         }
-
+        /*
+         * 获取元素的序号
+         */
         private void getIdByEle_List_Click(object sender, EventArgs e)
         {
             int ele = int.Parse(getIdByEle_TextBox.Text);
@@ -195,7 +217,9 @@ namespace LinearList
             getId_Text.Text = "未查找到元素！！";
             getId_Text.ForeColor = Color.Red;
         }
-
+        /*
+         * 插入元素
+         */
         private void insert_arr_btn_Click(object sender, EventArgs e)
         {
             int idx = int.Parse(insertIndex.Text);
@@ -208,9 +232,13 @@ namespace LinearList
             for (int i = count; i >=idx; i--) a[i] = a[i - 1];
             a[idx-1] = ele;
             count++;
+            if (count == a.Length) extendArr();
+            PrintArr(OutputText);
             PrintArr(insertedText);
         }
-
+        /*
+         * 插入元素
+         */
         private void insert_List_btn_Click(object sender, EventArgs e)
         {
             int idx = int.Parse(insertIndex.Text);
@@ -234,9 +262,12 @@ namespace LinearList
                 p = p.next;
             }
             count++;
+            PrintList(OutputText);
             PrintList(insertedText);
         }
-
+        /*
+         * 删除元素
+         */
         private void delete_arr_btn_Click(object sender, EventArgs e)
         {
             int idx = int.Parse(deleteIndex.Text);
@@ -252,11 +283,14 @@ namespace LinearList
             }
             a[count] = 0;
             count--;
+            PrintArr(OutputText);
             PrintArr(deleteText);
             deleteLable.Text = "删除成功！";
             deleteLable.ForeColor = Color.Green;
         }
-
+        /*
+         * 删除元素
+         */
         private void delete_List_btn_Click(object sender, EventArgs e)
         {
             int idx = int.Parse(deleteIndex.Text);
@@ -281,6 +315,7 @@ namespace LinearList
                 prev = p;
                 p = p.next;
             }
+            PrintList(OutputText);
             PrintList(deleteText);
             deleteLable.Text = "删除成功！";
             deleteLable.ForeColor = Color.Green;
