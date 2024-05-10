@@ -5,7 +5,9 @@ VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinearList", "LinearList\LinearList.csproj", "{4DABB0A6-8912-416A-9969-0A3ABE9378E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "turnTableGame", "turnTableGame\turnTableGame.csproj", "{10ACF1AE-D415-42F5-AC00-8971E1531701}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "turnTableGame", "turnTableGame\turnTableGame.csproj", "{10ACF1AE-D415-42F5-AC00-8971E1531701}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stack", "Stack\Stack.csproj", "{090ED245-D569-490F-ABEA-5FF1ACEB118D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{10ACF1AE-D415-42F5-AC00-8971E1531701}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{10ACF1AE-D415-42F5-AC00-8971E1531701}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{10ACF1AE-D415-42F5-AC00-8971E1531701}.Release|Any CPU.Build.0 = Release|Any CPU
+		{090ED245-D569-490F-ABEA-5FF1ACEB118D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{090ED245-D569-490F-ABEA-5FF1ACEB118D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{090ED245-D569-490F-ABEA-5FF1ACEB118D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{090ED245-D569-490F-ABEA-5FF1ACEB118D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
