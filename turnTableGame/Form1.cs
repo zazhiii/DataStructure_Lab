@@ -3,31 +3,16 @@ namespace turnTableGame
     public partial class Form1 : Form
     {
         
-        Player player0 = new Player();//头节点(头节点不存储元素）
-        int count = 0;//记录当前玩家数量
-        int gunPos = 1;//枪的位置
-        Graphics g;// 画布
-        Icon[] headIcons;//玩家头像
-        Icon scareIcon = new Icon("icons/scare.ico");
-        Icon deadIcon = new Icon("icons/dead.ico");
-        Icon winIcon = new Icon("icons/win.ico");
-        Icon gunIcon = new Icon("icons/tank.ico");
+        Player player0 = new Player();  //头节点(头节点不存储元素）
+        int count = 0;                  //记录当前玩家数量
+        int gunPos = 1;                 //枪的位置
+        Graphics g;                     // 画布
+        Icons icons = new Icons();      //图标资源
         public Form1()
-        {
+        { 
             InitializeComponent();
             fire_btn.Enabled = false;
             restart.Enabled = false;
-            //加载头像
-            string[] iconFiles = Directory.GetFiles("icons/players", "*.ico");
-            headIcons = new Icon[iconFiles.Length];
-            for (int i = 0; i < iconFiles.Length; i++)
-            {
-                // 使用 FromHandle 方法加载图标文件
-                using (FileStream fs = new FileStream(iconFiles[i], FileMode.Open, FileAccess.Read))
-                {
-                    headIcons[i] = new Icon(fs);
-                }
-            }
         }
         /*
          * 开始游戏
@@ -42,7 +27,7 @@ namespace turnTableGame
             Random random = new Random();
             for (int i = 1; i <= PlayerNum; i++)//生成玩家链表
             {
-                Player curPlayer = new Player("玩家" + i, headIcons[random.Next(1, headIcons.Length)], null);
+                Player curPlayer = new Player("玩家" + i, icons.headIcons[random.Next(1, icons.headIcons.Length)], null);
                 last.next = curPlayer;
                 last = curPlayer;
             }
@@ -58,7 +43,7 @@ namespace turnTableGame
             g = pictureBox1.CreateGraphics();//画布
 
             double a = 360 / count * Math.PI / 180;//计算角度（弧度制）
-            int R = Math.Min(width, height) / 2 - winIcon.Height;
+            int R = Math.Min(width, height) / 2 - icons.winIcon.Height;
             Player p = player0.next;
             //
             Rectangle rtg = new Rectangle(0, 0, width, height);
@@ -93,6 +78,7 @@ namespace turnTableGame
         {
             int height = pictureBox1.Height;
             int width = pictureBox1.Width;
+            Icon gunIcon = icons.gunIcon;
             double a = 360 / count * Math.PI / 180;//计算角度（弧度制）
             Rectangle rtg = new Rectangle(width / 2 - gunIcon.Width / 2, height / 2 - gunIcon.Height / 2, gunIcon.Width, gunIcon.Height);
             g.FillRectangle(new SolidBrush(Color.White), rtg);
@@ -117,7 +103,7 @@ namespace turnTableGame
                         last.next = p.next;
                         count--;
                         deadbox.Items.Add(p.name + "被淘汰了！");
-                        drawPlayer(deadIcon, p, p.x, p.y);//绘制淘汰图标
+                        drawPlayer(icons.deadIcon, p, p.x, p.y);//绘制淘汰图标
                         Thread.Sleep(500);//等待
                         drawPlayers();
                         break;
@@ -130,7 +116,7 @@ namespace turnTableGame
             {
                 Player p = player0;
                 for (int i = 1; i <= gunPos; i++) p = p.next;//找到gun的位置的玩家
-                drawPlayer(scareIcon, p, p.x, p.y);//绘制淘汰图标
+                drawPlayer(icons.scareIcon, p, p.x, p.y);//绘制淘汰图标
                 Thread.Sleep(500);//等待
                 drawPlayer(p.headIcon, p, p.x, p.y);
                 gunPos++;
@@ -139,7 +125,7 @@ namespace turnTableGame
             {
                 fire_btn.Enabled = false;
                 Player p = player0.next;
-                drawPlayer(winIcon, p, p.x, p.y);
+                drawPlayer(icons.winIcon, p, p.x, p.y);
                 deadbox.Items.Add(player0.next.name + "取得了游戏胜利！！！");
             }
             if (gunPos > count) gunPos = 1;
