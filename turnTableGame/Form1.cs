@@ -2,23 +2,7 @@ namespace turnTableGame
 {
     public partial class Form1 : Form
     {
-
-        public class Player//玩家类
-        {
-            public String name = "";
-            public Icon headIcon;
-            public Player next;
-            public int x;
-            public int y;
-            public Player(String name, Icon headIcon, Player next)
-            {
-                this.name = name;
-                this.headIcon = headIcon;
-                this.next = next;
-            }
-            public Player() { }
-        }
-        Random random = new Random();
+        
         Player player0 = new Player();//头节点(头节点不存储元素）
         int count = 0;//记录当前玩家数量
         int gunPos = 1;//枪的位置
@@ -55,6 +39,7 @@ namespace turnTableGame
             int PlayerNum = int.Parse(playersNum.Text);
             count = PlayerNum;
             Player last = player0;
+            Random random = new Random();
             for (int i = 1; i <= PlayerNum; i++)//生成玩家链表
             {
                 Player curPlayer = new Player("玩家" + i, headIcons[random.Next(1, headIcons.Length)], null);
@@ -165,6 +150,7 @@ namespace turnTableGame
          */
         private bool isFire()
         {
+            Random random = new Random();
             return random.Next(0, 3) == 1;//    1/3的概率开枪
         }
         /*

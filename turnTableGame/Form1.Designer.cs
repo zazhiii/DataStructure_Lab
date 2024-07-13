@@ -37,32 +37,36 @@
             restart = new Button();
             label2 = new Label();
             textBox1 = new TextBox();
+            label3 = new Label();
+            gunAttack = new TextBox();
+            label4 = new Label();
+            health = new TextBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // playersNum
             // 
-            playersNum.Location = new Point(176, 62);
+            playersNum.Location = new Point(156, 62);
             playersNum.Name = "playersNum";
-            playersNum.Size = new Size(248, 30);
+            playersNum.Size = new Size(82, 30);
             playersNum.TabIndex = 0;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Microsoft YaHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            label1.Location = new Point(12, 59);
+            label1.Location = new Point(40, 59);
             label1.Name = "label1";
-            label1.Size = new Size(158, 31);
+            label1.Size = new Size(110, 31);
             label1.TabIndex = 1;
-            label1.Text = "输入参赛人数";
+            label1.Text = "参赛人数";
             // 
             // startGame_btn
             // 
             startGame_btn.Font = new Font("Microsoft YaHei UI", 10.5F, FontStyle.Bold, GraphicsUnit.Point, 134);
-            startGame_btn.Location = new Point(430, 53);
+            startGame_btn.Location = new Point(706, 53);
             startGame_btn.Name = "startGame_btn";
-            startGame_btn.Size = new Size(164, 47);
+            startGame_btn.Size = new Size(141, 47);
             startGame_btn.TabIndex = 2;
             startGame_btn.Text = "开始游戏";
             startGame_btn.UseVisualStyleBackColor = true;
@@ -100,9 +104,9 @@
             // restart
             // 
             restart.Font = new Font("Microsoft YaHei UI", 10.5F, FontStyle.Bold, GraphicsUnit.Point, 134);
-            restart.Location = new Point(621, 53);
+            restart.Location = new Point(706, 12);
             restart.Name = "restart";
-            restart.Size = new Size(164, 47);
+            restart.Size = new Size(141, 47);
             restart.TabIndex = 6;
             restart.Text = "重新开始";
             restart.UseVisualStyleBackColor = true;
@@ -130,11 +134,49 @@
             textBox1.TabIndex = 8;
             textBox1.Text = "输入玩家数量n，点击开始游戏则会有n个玩家参加游戏。每次点击开枪会有1/3的概率打出子弹，若打出子弹则对应位置的玩家淘汰。当场上只剩一名玩家时该玩家获得本场游戏胜利。";
             // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Microsoft YaHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            label3.Location = new Point(253, 59);
+            label3.Name = "label3";
+            label3.Size = new Size(110, 31);
+            label3.TabIndex = 10;
+            label3.Text = "子弹伤害";
+            // 
+            // gunAttack
+            // 
+            gunAttack.Location = new Point(369, 62);
+            gunAttack.Name = "gunAttack";
+            gunAttack.Size = new Size(82, 30);
+            gunAttack.TabIndex = 9;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Microsoft YaHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            label4.Location = new Point(460, 59);
+            label4.Name = "label4";
+            label4.Size = new Size(134, 31);
+            label4.TabIndex = 12;
+            label4.Text = "玩家生命值";
+            // 
+            // health
+            // 
+            health.Location = new Point(600, 62);
+            health.Name = "health";
+            health.Size = new Size(82, 30);
+            health.TabIndex = 11;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(11F, 24F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1397, 1149);
+            Controls.Add(label4);
+            Controls.Add(health);
+            Controls.Add(label3);
+            Controls.Add(gunAttack);
             Controls.Add(textBox1);
             Controls.Add(label2);
             Controls.Add(restart);
@@ -145,7 +187,7 @@
             Controls.Add(label1);
             Controls.Add(playersNum);
             Name = "Form1";
-            Text = "Form1";
+            Text = "TURN TABLE GAME";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -162,5 +204,9 @@
         private Button restart;
         private Label label2;
         private TextBox textBox1;
+        private Label label3;
+        private TextBox gunAttack;
+        private Label label4;
+        private TextBox health;
     }
 }
