@@ -24,8 +24,8 @@ namespace turnTableGame
          */
         public void Add(Player player)
         {
-            player.next = Head.next;
-            Head.next = player;
+            player.Next = Head.Next;
+            Head.Next = player;
             Size1++;
         }
 
@@ -35,12 +35,12 @@ namespace turnTableGame
         public Player Remove(int index)
         {
             int p = 1;
-            Player pre = Head, cur = Head.next;
+            Player pre = Head, cur = Head.Next;
             while (cur != null)
             {
                 if (p == index)
                 {
-                    pre.next = cur.next;
+                    pre.Next = cur.Next;
                     Size1--;
                     return cur;
                 }
@@ -48,7 +48,7 @@ namespace turnTableGame
                 {
                     pre = cur;
                 }
-                cur = cur.next;
+                cur = cur.Next;
                 p++;
             }
             return Head;
@@ -65,7 +65,7 @@ namespace turnTableGame
          */
         public Player Get(int index)
         {
-            Player player = Head.next;
+            Player player = Head.Next;
             int p = 1;
             while (player != null)
             {
@@ -74,7 +74,7 @@ namespace turnTableGame
                     return player;
                 }
                 p++;
-                player = player.next;
+                player = player.Next;
             }
             return Head;
         }
@@ -83,7 +83,7 @@ namespace turnTableGame
          */
         public Player GetFirst()
         {
-            return Head.next;
+            return Head.Next;
         }
     }
 }

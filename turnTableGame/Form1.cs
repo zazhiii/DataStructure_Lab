@@ -49,10 +49,12 @@ namespace turnTableGame
             g.FillRectangle(new SolidBrush(Color.White), rtg);
             for (int i = 0; i < players.Size(); i++)
             {
-                int x = (int)(width / 2 - R * Math.Cos(a * i)) - player.headIcon.Width / 2;
-                int y = (int)(height / 2 - R * Math.Sin(a * i)) - player.headIcon.Height / 2;
-                drawPlayer(player.headIcon, player, x, y);
-                player = player.next;
+                int x = (int)(width / 2 - R * Math.Cos(a * i)) - player.HeadIcon.Width / 2;
+                int y = (int)(height / 2 - R * Math.Sin(a * i)) - player.HeadIcon.Height / 2;
+                player.X = x;
+                player.Y = y;
+                drawPlayer(player.HeadIcon, player);
+                player = player.Next;
             }
             drawGun();
         }
@@ -60,14 +62,14 @@ namespace turnTableGame
         /*
          * 绘制头像
          */
-        private void drawPlayer(Icon icon, Player player, int x, int y)
-        {
-            Rectangle rtg = new Rectangle(x, y, icon.Width, icon.Height);
+        private void drawPlayer(Icon icon, Player player)
+        {   
+            int x = player.X;
+            int y = player.Y;
+            Rectangle rtg = new Rectangle(x - icon.Width / 2, y - icon.Height / 2, 2 * icon.Width, 2 * icon.Height);
             g.FillRectangle(new SolidBrush(Color.White), rtg);
-            player.x = x;
-            player.y = y;
             g.DrawIcon(icon, x, y);
-            g.DrawString(player.name, new Font("Arial", 10), new SolidBrush(Color.Black), x, y + icon.Height);
+            g.DrawString(player.Name, new Font("Arial", 10), new SolidBrush(Color.Black), x, y + icon.Height);
             g.DrawString(player.Health + "/" + health, new Font("Arial", 10), new SolidBrush(Color.Black), x - 10, y - 20);
         }
         /*
@@ -102,33 +104,34 @@ namespace turnTableGame
             {
                 Player aimPlayer = players.Get(gun.Pos);    // 中枪玩家
                 aimPlayer.Health = aimPlayer.Health - gun.Attack;   // 减少血量
-                drawEmoji(icons.DeadIcon, aimPlayer.x, aimPlayer.y); // 绘制中枪图标
+                drawEmoji(icons.DeadIcon, aimPlayer.X, aimPlayer.Y); // 绘制中枪图标
                 Thread.Sleep(500);//等待
                 if (aimPlayer.Health <= 0)
                 {
-                    deadbox.Items.Add(aimPlayer.name + "被淘汰了！");
+                    deadbox.Items.Add(aimPlayer.Name + "被淘汰了！");
                     players.Remove(gun.Pos);
+                    drawPlayers(players);
                 }
                 else
                 {
                     gun.Pos = gun.Pos + 1;
+                    drawPlayer(aimPlayer.HeadIcon, aimPlayer);
                 }
-                drawPlayers(players);
             }
             else//没开腔成功则枪位置+1
             {   
                 Player player = players.Get(gun.Pos);
-                drawEmoji(icons.ScareIcon, player.x, player.y);
+                drawEmoji(icons.ScareIcon, player.X, player.Y);
                 Thread.Sleep(500);//等待
-                drawPlayer(player.headIcon, player, player.x, player.y);
+                drawEmoji(player.HeadIcon, player.X, player.Y);
                 gun.Pos = gun.Pos + 1;
             }
             if (players.Size() == 1)
             {
                 fire_btn.Enabled = false;
                 Player winPlayer = players.GetFirst();
-                drawEmoji(icons.WinIcon, winPlayer.x, winPlayer.y);
-                deadbox.Items.Add(winPlayer.name + "取得了游戏胜利！！！");
+                drawEmoji(icons.WinIcon, winPlayer.X, winPlayer.Y);
+                deadbox.Items.Add(winPlayer.Name + "取得了游戏胜利！！！");
             }
             if (gun.Pos > players.Size()) gun.Pos = 1;
             drawGun();
