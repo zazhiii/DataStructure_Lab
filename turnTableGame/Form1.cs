@@ -44,9 +44,13 @@ namespace turnTableGame
             var a = 360 / players.Size() * Math.PI / 180;//计算角度（弧度制）
             int R = Math.Min(width, height) / 2 - icons.WinIcon.Height;
             Player player = players.GetFirst();
-            
+
             Rectangle rtg = new Rectangle(0, 0, width, height);
             g.FillRectangle(new SolidBrush(Color.White), rtg);
+
+            //Rectangle rtg2 = new Rectangle(0, 0, 10, 10);
+            //g.FillRectangle(new SolidBrush(Color.Green), rtg2);
+           
             for (int i = 0; i < players.Size(); i++)
             {
                 int x = (int)(width / 2 - R * Math.Cos(a * i)) - player.HeadIcon.Width / 2;
@@ -66,11 +70,21 @@ namespace turnTableGame
         {   
             int x = player.X;
             int y = player.Y;
-            Rectangle rtg = new Rectangle(x - icon.Width / 2, y - icon.Height / 2, 2 * icon.Width, 2 * icon.Height);
+            // 覆盖整个头像
+            Rectangle rtg = new Rectangle(x - icon.Width / 2, y - icon.Height / 2 - 10, 2 * icon.Width, 2 * icon.Height);
             g.FillRectangle(new SolidBrush(Color.White), rtg);
+            // 绘制所有信息
+            //绘制血条
+            Color color = Color.Green;
+            if(player.Health <= health / 2) color = Color.Orange;
+            if (player.Health <= health / 4) color = Color.Red;
+            Rectangle healthBar = new Rectangle(x, y - 12, (int)1.0 * player.Health * icon.Width / health, 10);
+            g.FillRectangle(new SolidBrush(color), healthBar);
+            g.DrawRectangle(new Pen(Color.Black), new Rectangle(x, y - 12, icon.Width, 10));
+            //绘制图标、名字、血量
             g.DrawIcon(icon, x, y);
             g.DrawString(player.Name, new Font("Arial", 10), new SolidBrush(Color.Black), x, y + icon.Height);
-            g.DrawString(player.Health + "/" + health, new Font("Arial", 10), new SolidBrush(Color.Black), x - 10, y - 20);
+            g.DrawString(player.Health + "/" + health, new Font("Arial", 10), new SolidBrush(Color.Black), x - 10, y - 32);
         }
         /*
          *  绘制表情
@@ -78,6 +92,7 @@ namespace turnTableGame
         public void drawEmoji(Icon icon, int x, int y)
         {
             Rectangle rtg = new Rectangle(x, y, icon.Width, icon.Height);
+            
             g.FillRectangle(new SolidBrush(Color.White), rtg);
             g.DrawIcon(icon, x, y);
         }
