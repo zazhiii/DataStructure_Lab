@@ -19,5 +19,13 @@ namespace turnTableGame
             this.Pos = pos;
             this.Attack = attack;
         }
+        /**
+         * 开枪
+         */
+        public Boolean Fire()
+        {
+            Random random = new Random();
+            return random.Next(0, 3) == 1;//    1/3的概率开枪
+        }
     }
 }

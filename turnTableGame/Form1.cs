@@ -115,7 +115,7 @@ namespace turnTableGame
          */
         private void fire_btn_Click(object sender, EventArgs e)
         {
-            if (isFire())//成功开枪则将玩家从链表删除
+            if (gun.Fire())//成功开枪则将玩家从链表删除
             {
                 Player aimPlayer = players.Get(gun.Pos);    // 中枪玩家
                 aimPlayer.Health = aimPlayer.Health - gun.Attack;   // 减少血量
@@ -151,14 +151,16 @@ namespace turnTableGame
             if (gun.Pos > players.Size()) gun.Pos = 1;
             drawGun();
         }
-        /**
-         * 判断是否开枪成功
-         */
-        private bool isFire()
-        {
-            Random random = new Random();
-            return random.Next(0, 3) == 1;//    1/3的概率开枪
-        }
+
+        ///**
+        // * 判断是否开枪成功
+        // */
+        //private bool isFire()
+        //{
+        //    Random random = new Random();
+        //    return random.Next(0, 3) == 1;//    1/3的概率开枪
+        //}
+
         /*
          * 旋转Icon
          */
