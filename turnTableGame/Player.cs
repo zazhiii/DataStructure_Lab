@@ -12,14 +12,18 @@ namespace turnTableGame
         public Icon headIcon;       // 头像
         public Player next;         // 下一个玩家
         public int x, y;            // 坐标
-        public int health;          // 生命值
+        private int health;          // 生命值
+
+        public int Health { get => health; set => health = value; }
+
         public Player(String name, Icon headIcon, Player next, int health)
         {
             this.name = name;
             this.headIcon = headIcon;
             this.next = next;
-            this.health = health;
+            this.Health = health;
         }
         public Player() { }
+
     }
 }

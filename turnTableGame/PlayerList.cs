@@ -8,23 +8,11 @@ namespace turnTableGame
 {
     internal class PlayerList
     {
-        ///**
-        // * 节点内部类
-        // */
-        //public class Player
-        //{
-        //    public E value;
-        //    public Player next;
-        //    public Node(E value, Player next)
-        //    {
-        //        this.value = value;
-        //        this.next = next;
-        //    }
-        //    public Node() { }
-        //}
+        private int size = 0;        // 链表大小
+        private Player head = new Player();    // 头节点（不存储元素）
 
-        public int size = 0;        // 链表大小
-        public Player head = new Player();    // 头节点（不存储元素）
+        public int Size1 { get => size; set => size = value; }
+        public Player Head { get => head; set => head = value; }
 
         /**
          * 构造器
@@ -36,9 +24,9 @@ namespace turnTableGame
          */
         public void Add(Player player)
         {
-            player.next = head.next;
-            head.next = player;
-            size++;
+            player.next = Head.next;
+            Head.next = player;
+            Size1++;
         }
 
         /**
@@ -47,13 +35,13 @@ namespace turnTableGame
         public Player Remove(int index)
         {
             int p = 1;
-            Player pre = head, cur = head.next;
+            Player pre = Head, cur = Head.next;
             while (cur != null)
             {
                 if (p == index)
                 {
                     pre.next = cur.next;
-                    size--;
+                    Size1--;
                     return cur;
                 }
                 else
@@ -63,21 +51,21 @@ namespace turnTableGame
                 cur = cur.next;
                 p++;
             }
-            return head;
+            return Head;
         }
         /**
          * 获取链表大小
          */
         public int Size()
         {
-            return size;
+            return Size1;
         }
         /**
          * 查找元素
          */
         public Player Get(int index)
         {
-            Player player = head.next;
+            Player player = Head.next;
             int p = 1;
             while (player != null)
             {
@@ -88,14 +76,14 @@ namespace turnTableGame
                 p++;
                 player = player.next;
             }
-            return head;
+            return Head;
         }
         /**
          * 获取第一个玩家
          */
         public Player GetFirst()
         {
-            return head.next;
+            return Head.next;
         }
     }
 }

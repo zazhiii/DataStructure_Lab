@@ -5,7 +5,10 @@ namespace turnTableGame
         Graphics g;                     // 画布
         Gun gun;                        //枪对象
         Icons icons = new Icons();      //图标资源
-        PlayerList players = new PlayerList(); // 存储玩家的链表
+        PlayerList players; // 存储玩家的链表
+        int PlayerNumber;
+        int gunAtk;
+        int health;
         public Form1()
         { 
             InitializeComponent();
@@ -17,14 +20,15 @@ namespace turnTableGame
         {   
             fire_btn.Enabled = true;
             restart.Enabled = true;
-            int PlayerNumber = int.Parse(playersNum.Text);  // 玩家数量
-            int gunAtk = int.Parse(gunAttack.Text);         // 子弹伤害
-            int health = int.Parse(healthValue.Text);       // 玩家生命值
+            PlayerNumber = int.Parse(playersNum.Text);  // 玩家数量
+            gunAtk = int.Parse(gunAttack.Text);         // 子弹伤害
+            health = int.Parse(healthValue.Text);       // 玩家生命值
+            players = new PlayerList();                     // 初始化玩家链表
             gun = new Gun(1, gunAtk);                       // 初始化枪对象
             Random random = new Random();
             for (int i = 1; i <= PlayerNumber; i++)//生成玩家链表
             {
-                Player player = new Player("玩家" + i, icons.headIcons[random.Next(1, icons.headIcons.Length)], null, health);
+                Player player = new Player("玩家" + i, icons.HeadIcons[random.Next(1, icons.HeadIcons.Length)], null, health);
                 players.Add(player);
             }
             drawPlayers(players);//绘制玩家头像
@@ -37,9 +41,8 @@ namespace turnTableGame
             int height = pictureBox1.Height;
             int width = pictureBox1.Width;
             g = pictureBox1.CreateGraphics();//画布
-
-            double a = 360 / players.Size() * Math.PI / 180;//计算角度（弧度制）
-            int R = Math.Min(width, height) / 2 - icons.winIcon.Height;
+            var a = 360 / players.Size() * Math.PI / 180;//计算角度（弧度制）
+            int R = Math.Min(width, height) / 2 - icons.WinIcon.Height;
             Player player = players.GetFirst();
             
             Rectangle rtg = new Rectangle(0, 0, width, height);
@@ -65,8 +68,17 @@ namespace turnTableGame
             player.y = y;
             g.DrawIcon(icon, x, y);
             g.DrawString(player.name, new Font("Arial", 10), new SolidBrush(Color.Black), x, y + icon.Height);
+            g.DrawString(player.Health + "/" + health, new Font("Arial", 10), new SolidBrush(Color.Black), x - 10, y - 20);
         }
-
+        /*
+         *  绘制表情
+         */
+        public void drawEmoji(Icon icon, int x, int y)
+        {
+            Rectangle rtg = new Rectangle(x, y, icon.Width, icon.Height);
+            g.FillRectangle(new SolidBrush(Color.White), rtg);
+            g.DrawIcon(icon, x, y);
+        }
         /*
          * 绘制枪
          */
@@ -74,11 +86,11 @@ namespace turnTableGame
         {
             int height = pictureBox1.Height;
             int width = pictureBox1.Width;
-            Icon gunIcon = icons.gunIcon;
+            Icon gunIcon = icons.GunIcon;
             double a = 360 / players.Size() * Math.PI / 180;//计算角度（弧度制）
             Rectangle rtg = new Rectangle(width / 2 - gunIcon.Width / 2, height / 2 - gunIcon.Height / 2, gunIcon.Width, gunIcon.Height);
             g.FillRectangle(new SolidBrush(Color.White), rtg);
-            g.DrawIcon(rotateIcon(gunIcon, (float)(a * (gun.GetPos() - 1) / Math.PI * 180) - 90), width / 2 - gunIcon.Width / 2, height / 2 - gunIcon.Height / 2);
+            g.DrawIcon(rotateIcon(gunIcon, (float)(a * (gun.Pos - 1) / Math.PI * 180) - 90), width / 2 - gunIcon.Width / 2, height / 2 - gunIcon.Height / 2);
         }
 
         /*
@@ -88,28 +100,37 @@ namespace turnTableGame
         {
             if (isFire())//成功开枪则将玩家从链表删除
             {
-                Player rmvPlayer = players.Remove(gun.GetPos());
-                deadbox.Items.Add(rmvPlayer.name + "被淘汰了！");
-                drawPlayer(icons.deadIcon, rmvPlayer, rmvPlayer.x, rmvPlayer.y);//绘制淘汰图标
+                Player aimPlayer = players.Get(gun.Pos);    // 中枪玩家
+                aimPlayer.Health = aimPlayer.Health - gun.Attack;   // 减少血量
+                drawEmoji(icons.DeadIcon, aimPlayer.x, aimPlayer.y); // 绘制中枪图标
                 Thread.Sleep(500);//等待
+                if (aimPlayer.Health <= 0)
+                {
+                    deadbox.Items.Add(aimPlayer.name + "被淘汰了！");
+                    players.Remove(gun.Pos);
+                }
+                else
+                {
+                    gun.Pos = gun.Pos + 1;
+                }
                 drawPlayers(players);
             }
             else//没开腔成功则枪位置+1
             {   
-                Player player = players.Get(gun.GetPos());
-                drawPlayer(icons.scareIcon, player, player.x, player.y);//绘制淘汰图标
+                Player player = players.Get(gun.Pos);
+                drawEmoji(icons.ScareIcon, player.x, player.y);
                 Thread.Sleep(500);//等待
                 drawPlayer(player.headIcon, player, player.x, player.y);
-                gun.incPos();
+                gun.Pos = gun.Pos + 1;
             }
             if (players.Size() == 1)
             {
                 fire_btn.Enabled = false;
                 Player winPlayer = players.GetFirst();
-                drawPlayer(icons.winIcon, winPlayer, winPlayer.x, winPlayer.y);
+                drawEmoji(icons.WinIcon, winPlayer.x, winPlayer.y);
                 deadbox.Items.Add(winPlayer.name + "取得了游戏胜利！！！");
             }
-            if (gun.GetPos() > players.Size()) gun.setPos(1);
+            if (gun.Pos > players.Size()) gun.Pos = 1;
             drawGun();
         }
         /**
@@ -150,6 +171,8 @@ namespace turnTableGame
             int width = pictureBox1.Width;
             Rectangle rtg = new Rectangle(0, 0, width, height);
             g.FillRectangle(new SolidBrush(Color.White), rtg);
+            fire_btn.Enabled = false;
+            restart.Enabled = false;
         }
     }
 }
