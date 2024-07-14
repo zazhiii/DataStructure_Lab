@@ -6,9 +6,9 @@ namespace turnTableGame
         Gun gun;                        //枪对象
         Icons icons = new Icons();      //图标资源
         PlayerList players; // 存储玩家的链表
-        int PlayerNumber;
-        int gunAtk;
-        int health;
+        int PlayerNumber = 6;
+        int gunAtk = 25;
+        int health = 100;
         public Form1()
         { 
             InitializeComponent();
@@ -20,9 +20,9 @@ namespace turnTableGame
         {   
             fire_btn.Enabled = true;
             restart.Enabled = true;
-            PlayerNumber = int.Parse(playersNum.Text);  // 玩家数量
-            gunAtk = int.Parse(gunAttack.Text);         // 子弹伤害
-            health = int.Parse(healthValue.Text);       // 玩家生命值
+            if(playersNum.Text != "") PlayerNumber = int.Parse(playersNum.Text);  // 玩家数量
+            if (gunAttack.Text != "") gunAtk = int.Parse(gunAttack.Text);         // 子弹伤害
+            if (healthValue.Text != "") health = int.Parse(healthValue.Text);       // 玩家生命值
             players = new PlayerList();                     // 初始化玩家链表
             gun = new Gun(1, gunAtk);                       // 初始化枪对象
             Random random = new Random();
