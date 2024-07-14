@@ -13,12 +13,12 @@ namespace turnTableGame
         public Player next;         // 下一个玩家
         public int x, y;            // 坐标
         public int health;          // 生命值
-        public Player(String name, Icon headIcon, Player next)
+        public Player(String name, Icon headIcon, Player next, int health)
         {
             this.name = name;
             this.headIcon = headIcon;
             this.next = next;
-            this.health = 100;
+            this.health = health;
         }
         public Player() { }
     }

@@ -15,5 +15,33 @@ namespace turnTableGame
             this.pos = pos;
             this.attack = attack;
         }
+        /**
+         * 获取枪位置
+         */
+        public int GetPos()
+        {
+            return pos;
+        }
+        /**
+         * 增加位置
+         */
+        public void incPos()
+        {
+            pos ++;
+        }
+        /**
+         * 减少位置
+         */
+        public void decPos()
+        {
+            pos --;
+        }
+        /**
+         * 设置枪位置
+         */
+        public void setPos(int newPos) 
+        { 
+            pos = newPos;
+        }
     }
 }

@@ -40,7 +40,7 @@
             label3 = new Label();
             gunAttack = new TextBox();
             label4 = new Label();
-            health = new TextBox();
+            healthValue = new TextBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -74,6 +74,7 @@
             // 
             // fire_btn
             // 
+            fire_btn.Enabled = false;
             fire_btn.Font = new Font("Microsoft YaHei UI", 24F, FontStyle.Bold, GraphicsUnit.Point, 134);
             fire_btn.ForeColor = SystemColors.ActiveCaptionText;
             fire_btn.Location = new Point(853, 12);
@@ -103,6 +104,7 @@
             // 
             // restart
             // 
+            restart.Enabled = false;
             restart.Font = new Font("Microsoft YaHei UI", 10.5F, FontStyle.Bold, GraphicsUnit.Point, 134);
             restart.Location = new Point(706, 12);
             restart.Name = "restart";
@@ -161,12 +163,12 @@
             label4.TabIndex = 12;
             label4.Text = "玩家生命值";
             // 
-            // health
+            // healthValue
             // 
-            health.Location = new Point(600, 62);
-            health.Name = "health";
-            health.Size = new Size(82, 30);
-            health.TabIndex = 11;
+            healthValue.Location = new Point(600, 62);
+            healthValue.Name = "healthValue";
+            healthValue.Size = new Size(82, 30);
+            healthValue.TabIndex = 11;
             // 
             // Form1
             // 
@@ -174,7 +176,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1397, 1149);
             Controls.Add(label4);
-            Controls.Add(health);
+            Controls.Add(healthValue);
             Controls.Add(label3);
             Controls.Add(gunAttack);
             Controls.Add(textBox1);
@@ -207,6 +209,6 @@
         private Label label3;
         private TextBox gunAttack;
         private Label label4;
-        private TextBox health;
+        private TextBox healthValue;
     }
 }
