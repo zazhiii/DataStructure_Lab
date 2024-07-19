@@ -231,5 +231,13 @@ namespace WindowsFormsApp3
 
             Invalidate(); //刷新绘制
         }
+
+        private void colorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ColorDialog colorDialog = new ColorDialog();
+            colorDialog.ShowDialog();
+            Color color = colorDialog.Color;
+            menuStrip1.BackColor = color;
+        }
     }
 }
