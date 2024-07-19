@@ -8,35 +8,35 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsApp3
 {
-    public enum ShapeEnum
-    {
-        unknown = -1,
-        line = 0,
-        Rect = 1,
-        Polygon = 2,
-    }
-    public class Shape
-    {
-        public ShapeEnum type = ShapeEnum.unknown;
-        virtual public void Draw(Graphics g) 
-        {
+    //public enum ShapeEnum
+    //{
+    //    unknown = -1,
+    //    line = 0,
+    //    Rect = 1,
+    //    Polygon = 2,
+    //}
+    //public class Shape
+    //{
+    //    public ShapeEnum type = ShapeEnum.UNKNOWN;
+    //    virtual public void Draw(Graphics g) 
+    //    {
 
-        }
-        virtual public void Save(BinaryWriter bw)
-        {
+    //    }
+    //    virtual public void Save(BinaryWriter bw)
+    //    {
 
-        }
-        virtual public void Read(BinaryReader br)
-        {
+    //    }
+    //    virtual public void Read(BinaryReader br)
+    //    {
 
-        }
-    }
+    //    }
+    //}
     internal class Line: Shape
     {
         public List<Point>Points = new List<Point>();
         public Line() 
         {
-            type = ShapeEnum.line; 
+            type = ShapeEnum.LINE; 
         }
         override public void Draw(Graphics g)
         {

@@ -16,7 +16,7 @@ namespace WindowsFormsApp3
         public int height = 0;
         public MyRectangle()
         {
-            type = ShapeEnum.Rect;
+            type = ShapeEnum.RECT;
         }
         override public void Draw(Graphics g)
         {

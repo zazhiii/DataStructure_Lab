@@ -211,15 +211,15 @@ namespace WindowsFormsApp3
             undoStack.Clear();//清空当前的数据--从文件中读取
             int n = br.ReadInt32();
             for (int i = 0; i < n; i++)
-            {                //
+            {                
                 ShapeEnum type = (ShapeEnum)br.ReadInt32();
-                if(type == ShapeEnum.line) 
+                if(type == ShapeEnum.LINE) 
                 {
                     line = new Line();
                     line.Read(br);
                     undoStack.Push(line);
                 }
-                else if (type == ShapeEnum.Rect)
+                else if (type == ShapeEnum.RECT)
                 {
                     rect = new MyRectangle();
                     rect.Read(br);
@@ -232,6 +232,9 @@ namespace WindowsFormsApp3
             Invalidate(); //刷新绘制
         }
 
+        /**
+         * 选择颜色 TODO
+         */
         private void colorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ColorDialog colorDialog = new ColorDialog();
