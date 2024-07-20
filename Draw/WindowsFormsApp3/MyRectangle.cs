@@ -14,13 +14,19 @@ namespace WindowsFormsApp3
         public Point p0;
         public int width = 0;
         public int height = 0;
-        public MyRectangle()
+        public MyRectangle(Color drawColor, float drawWidth, Point p0, int width, int height)
         {
             type = ShapeEnum.RECT;
+            this.drawColor = drawColor;
+            this.drawWidth = drawWidth;
+            this.p0 = p0;
+            this.width = width;
+            this.height = height;
         }
         override public void Draw(Graphics g)
         {
-            g.DrawRectangle(Pens.Black, p0.X, p0.Y,width, height);
+            Pen pen = new Pen(drawColor, drawWidth);
+            g.DrawRectangle(pen, p0.X, p0.Y, width, height);
         }
         public override void Save(BinaryWriter bw)
         {

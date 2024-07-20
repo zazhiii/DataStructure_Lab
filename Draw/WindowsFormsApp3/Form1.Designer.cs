@@ -40,11 +40,13 @@
             this.drawRectangleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.colorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.lineStyleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
             // 
+            this.menuStrip1.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -55,7 +57,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1061, 32);
+            this.menuStrip1.Size = new System.Drawing.Size(1128, 32);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -109,7 +111,8 @@
             // 
             this.drawToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.drawLineToolStripMenuItem,
-            this.drawRectangleToolStripMenuItem});
+            this.drawRectangleToolStripMenuItem,
+            this.lineStyleToolStripMenuItem});
             this.drawToolStripMenuItem.Name = "drawToolStripMenuItem";
             this.drawToolStripMenuItem.Size = new System.Drawing.Size(71, 28);
             this.drawToolStripMenuItem.Text = "Draw";
@@ -117,29 +120,35 @@
             // drawLineToolStripMenuItem
             // 
             this.drawLineToolStripMenuItem.Name = "drawLineToolStripMenuItem";
-            this.drawLineToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.drawLineToolStripMenuItem.Size = new System.Drawing.Size(246, 34);
             this.drawLineToolStripMenuItem.Text = "Draw Line";
             this.drawLineToolStripMenuItem.Click += new System.EventHandler(this.drawLineToolStripMenuItem_Click);
             // 
             // drawRectangleToolStripMenuItem
             // 
             this.drawRectangleToolStripMenuItem.Name = "drawRectangleToolStripMenuItem";
-            this.drawRectangleToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.drawRectangleToolStripMenuItem.Size = new System.Drawing.Size(246, 34);
             this.drawRectangleToolStripMenuItem.Text = "Draw Rectangle";
             this.drawRectangleToolStripMenuItem.Click += new System.EventHandler(this.drawRectangleToolStripMenuItem_Click);
             // 
             // colorToolStripMenuItem
             // 
             this.colorToolStripMenuItem.Name = "colorToolStripMenuItem";
-            this.colorToolStripMenuItem.Size = new System.Drawing.Size(69, 28);
-            this.colorToolStripMenuItem.Text = "color";
+            this.colorToolStripMenuItem.Size = new System.Drawing.Size(72, 28);
+            this.colorToolStripMenuItem.Text = "Color";
             this.colorToolStripMenuItem.Click += new System.EventHandler(this.colorToolStripMenuItem_Click);
+            // 
+            // lineStyleToolStripMenuItem
+            // 
+            this.lineStyleToolStripMenuItem.Name = "lineStyleToolStripMenuItem";
+            this.lineStyleToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.lineStyleToolStripMenuItem.Text = "Line Style";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1061, 754);
+            this.ClientSize = new System.Drawing.Size(1128, 802);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -172,6 +181,7 @@
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem colorToolStripMenuItem;
         private System.Windows.Forms.ColorDialog colorDialog1;
+        private System.Windows.Forms.ToolStripMenuItem lineStyleToolStripMenuItem;
     }
 }
 

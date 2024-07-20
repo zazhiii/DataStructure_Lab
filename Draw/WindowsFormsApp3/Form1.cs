@@ -14,6 +14,13 @@ namespace WindowsFormsApp3
 {
     public partial class Form1 : Form
     {
+
+        Color drawColor = Color.Black;
+        float drawWidth = 1.0f;
+
+        Point start;
+        Point end;
+
         
         //图元对象临时变量
         Line line;
@@ -43,31 +50,51 @@ namespace WindowsFormsApp3
         {
             drawMode = DrawingMode.LINE;
             Cursor = Cursors.Cross;
-            line = new Line();           
         }
 
         private void drawRectangleToolStripMenuItem_Click(object sender, EventArgs e)
         {
             drawMode = DrawingMode.RECTANGLE;
             Cursor = Cursors.Cross;
-            rect = new MyRectangle();
         }
         
-        
+        /**
+         * 鼠标按下
+         */
         private void Form1_MouseDown(object sender, MouseEventArgs e)
         {
-            bMouseDown = true;
-            Point p = e.Location;
-            if( drawMode== DrawingMode.LINE )
+            start = e.Location;
+        }
+        /**
+         * 鼠标抬起
+         */
+        private void Form1_MouseUp(object sender, MouseEventArgs e)
+        {
+            end = e.Location;
+            if(drawMode == DrawingMode.LINE)
             {
-                lastp = p;
-                line.Points.Add(p);
+                undoStack.Push(new Line(drawColor, drawWidth, start, end));
             }
-            else if (drawMode == DrawingMode.RECTANGLE)
-            {
-                lastp = p;
-                rect.p0 = p;
+            if (drawMode == DrawingMode.RECTANGLE)
+            {   
+                Point s = new Point(Math.Min(start.X, end.X), Math.Min(start.Y, end.Y));
+                MyRectangle rtg = new MyRectangle(drawColor, drawWidth, s, Math.Abs(start.X - end.X), Math.Abs(start.Y - end.Y));
+                undoStack.Push(rtg);
             }
+            //if ( bMouseDown && drawMode == DrawingMode.RECTANGLE)
+            //{
+            //    rect.width = p.X - rect.p0.X;
+            //    rect.height = p.Y - rect.p0.Y;
+            //    undoStack.Push(rect);
+            //    lastp = new Point(-1,-1);
+
+            //    //还原绘图模式
+            //    drawMode = DrawingMode.NONE;
+            //    Cursor = Cursors.Arrow;
+
+            //    //刷新显示
+            //    Invalidate();
+            //}
         }
         void Draw(Graphics g)
         {
@@ -76,27 +103,25 @@ namespace WindowsFormsApp3
             for(int i = 0; i < shapes.Length; i++) 
             {
                 Shape shape = shapes[i];
-                shape.Draw(g);                
+                shape.Draw(g);
             }
 
-            //绘制动态线
-            if (drawMode == DrawingMode.LINE && (lastp.X > 0 && lastp.Y > 0))
-            {
-                if(line.Points.Count >1 )line.Draw(g);
-                g.DrawLine(Pens.Brown, lastp, curp);
-            }
-            //绘制动态矩形
-            if (drawMode == DrawingMode.RECTANGLE && (lastp.X > 0 && lastp.Y > 0))
-            {
-                Rectangle rect = new Rectangle(lastp.X,lastp.Y,curp.X-lastp.X,curp.Y-lastp.Y);
-                g.DrawRectangle(Pens.Brown, rect);
-            }
+            ////绘制动态线
+            //if (drawMode == DrawingMode.LINE && (lastp.X > 0 && lastp.Y > 0))
+            //{
+            //    if(line.Points.Count > 1)line.Draw(g, drawPen);
+            //    g.DrawLine(drawPen, lastp, curp);
+            //}
+            ////绘制动态矩形
+            //if (drawMode == DrawingMode.RECTANGLE && (lastp.X > 0 && lastp.Y > 0))
+            //{
+            //    Rectangle rect = new Rectangle(lastp.X,lastp.Y,curp.X-lastp.X,curp.Y-lastp.Y);
+            //    g.DrawRectangle(drawPen, rect);
+            //}
 
         }
         private void Form1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            //line 结束了
-            //添加line到数组
             //绘制line
             if (drawMode == DrawingMode.LINE)
             {
@@ -112,24 +137,6 @@ namespace WindowsFormsApp3
             }
         }
 
-        private void Form1_MouseUp(object sender, MouseEventArgs e)
-        {
-            Point p = e.Location;
-            if ( bMouseDown && drawMode == DrawingMode.RECTANGLE)
-            {
-                rect.width = p.X - rect.p0.X;
-                rect.height = p.Y - rect.p0.Y;
-                undoStack.Push(rect);
-                lastp = new Point(-1,-1);
-
-                //还原绘图模式
-                drawMode = DrawingMode.NONE;
-                Cursor = Cursors.Arrow;
-
-                //刷新显示
-                Invalidate();
-            }
-        }
 
         private void undoToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -169,7 +176,7 @@ namespace WindowsFormsApp3
 
         private void testToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
@@ -215,13 +222,13 @@ namespace WindowsFormsApp3
                 ShapeEnum type = (ShapeEnum)br.ReadInt32();
                 if(type == ShapeEnum.LINE) 
                 {
-                    line = new Line();
+                    //line = new Line();
                     line.Read(br);
                     undoStack.Push(line);
                 }
                 else if (type == ShapeEnum.RECT)
                 {
-                    rect = new MyRectangle();
+                    //rect = new MyRectangle();
                     rect.Read(br);
                     undoStack.Push(rect);
                 }                
@@ -239,8 +246,7 @@ namespace WindowsFormsApp3
         {
             ColorDialog colorDialog = new ColorDialog();
             colorDialog.ShowDialog();
-            Color color = colorDialog.Color;
-            menuStrip1.BackColor = color;
+            drawColor = colorDialog.Color;
         }
     }
 }

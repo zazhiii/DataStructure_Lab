@@ -11,6 +11,8 @@ namespace WindowsFormsApp3
     public class Shape
     {
         public ShapeEnum type = ShapeEnum.UNKNOWN;
+        public Color drawColor;
+        public float drawWidth;
         virtual public void Draw(Graphics g){}
         virtual public void Save(BinaryWriter bw){}
         virtual public void Read(BinaryReader br){}
