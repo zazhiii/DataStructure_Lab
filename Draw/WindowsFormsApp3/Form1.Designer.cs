@@ -38,9 +38,11 @@
             this.drawToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.drawLineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.drawRectangleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lineStyleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.colorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.lineStyleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -131,6 +133,13 @@
             this.drawRectangleToolStripMenuItem.Text = "Draw Rectangle";
             this.drawRectangleToolStripMenuItem.Click += new System.EventHandler(this.drawRectangleToolStripMenuItem_Click);
             // 
+            // lineStyleToolStripMenuItem
+            // 
+            this.lineStyleToolStripMenuItem.Name = "lineStyleToolStripMenuItem";
+            this.lineStyleToolStripMenuItem.Size = new System.Drawing.Size(246, 34);
+            this.lineStyleToolStripMenuItem.Text = "Line Style";
+            this.lineStyleToolStripMenuItem.Click += new System.EventHandler(this.lineStyleToolStripMenuItem_Click);
+            // 
             // colorToolStripMenuItem
             // 
             this.colorToolStripMenuItem.Name = "colorToolStripMenuItem";
@@ -138,17 +147,34 @@
             this.colorToolStripMenuItem.Text = "Color";
             this.colorToolStripMenuItem.Click += new System.EventHandler(this.colorToolStripMenuItem_Click);
             // 
-            // lineStyleToolStripMenuItem
+            // textBox1
             // 
-            this.lineStyleToolStripMenuItem.Name = "lineStyleToolStripMenuItem";
-            this.lineStyleToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
-            this.lineStyleToolStripMenuItem.Text = "Line Style";
+            this.textBox1.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox1.Location = new System.Drawing.Point(410, 138);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(84, 28);
+            this.textBox1.TabIndex = 1;
+            this.textBox1.Text = "1";
+            this.textBox1.Visible = false;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.Location = new System.Drawing.Point(874, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(254, 31);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "按下并拖动以绘制图形";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1128, 802);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -180,8 +206,10 @@
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem colorToolStripMenuItem;
-        private System.Windows.Forms.ColorDialog colorDialog1;
         private System.Windows.Forms.ToolStripMenuItem lineStyleToolStripMenuItem;
+        private System.Windows.Forms.ColorDialog colorDialog1;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label1;
     }
 }
 
